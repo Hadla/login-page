@@ -1,8 +1,8 @@
 import React from 'react';
 import UserStore from './stores/UserStore';
-import LoginForm from './component/UserStore';
-import InputField from './component/InputField';
-import SubmitForm from './component/SubmitForm';
+import LoginForm from './components/LoginForm';
+import InputField from './components/InputField';
+import SubmitButton from './components/SubmitButton';
 import './App.css';
 
 class App extends React.Component {
@@ -16,6 +16,7 @@ class App extends React.Component {
         },
       });
       let result = await res.json();
+
       if (result && result.success) {
         UserStore.loading = false;
         UserStore.isLoggedIn = true;
@@ -30,9 +31,36 @@ class App extends React.Component {
     }
   }
 
+  async doLogout() {
+    try {
+      let res = await fetch('/logout', {
+        method: 'post',
+        headers: {
+          Accept: 'application/json',
+          'Content-type': 'application/json',
+        },
+      });
+      let result = await res.json();
+
+      if (result && result.success) {
+        UserStore.isLoggedIn = false;
+        UserStore.username = '';
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
   render() {
+    if (UserStore.loading) {
+      return (
+        <div className='app'>
+          <div className='container'>Loading, please wait...</div>
+        </div>
+      );
+    }
+
     return (
-      <div className='App'>
+      <div className='app'>
         <p>Hello</p>
       </div>
     );
