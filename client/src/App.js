@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import { observer } from 'mobx-react';
 import UserStore from './stores/UserStore';
 import LoginForm from './components/LoginForm';
-import InputField from './components/InputField';
 import SubmitButton from './components/SubmitButton';
 import './App.css';
 
@@ -12,7 +12,7 @@ class App extends React.Component {
         method: 'post',
         headers: {
           Accept: 'application/json',
-          'Content-type': 'application/json',
+          'Content-Type': 'application/json',
         },
       });
       let result = await res.json();
@@ -68,9 +68,16 @@ class App extends React.Component {
           </div>
         );
       }
-      return <div className='app'></div>;
+      return (
+        <div className='app'>
+          <div className='container'>
+            <SubmitButton text={'Log out'} disabled={false} onClick={() => this.doLogout()} />
+            <LoginForm />
+          </div>
+        </div>
+      );
     }
   }
 }
 
-export default App;
+export default observer(App);
