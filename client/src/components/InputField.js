@@ -1,5 +1,4 @@
 import React from 'react';
-import UserStore from '../stores/UserStore';
 import '../App.css';
 
 class InputField extends React.Component {

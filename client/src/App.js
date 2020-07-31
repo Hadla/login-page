@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import UserStore from './stores/UserStore';
 import LoginForm from './components/LoginForm';
 import InputField from './components/InputField';
@@ -57,13 +57,19 @@ class App extends React.Component {
           <div className='container'>Loading, please wait...</div>
         </div>
       );
+    } else {
+      if (UserStore.isLoggedIn) {
+        return (
+          <div className='app'>
+            <div className='container'>
+              Welcome {UserStore.username}
+              <SubmitButton text={'Log out'} disabled={false} onClick={() => this.doLogout()} />
+            </div>
+          </div>
+        );
+      }
+      return <div className='app'></div>;
     }
-
-    return (
-      <div className='app'>
-        <p>Hello</p>
-      </div>
-    );
   }
 }
 
