@@ -13,13 +13,14 @@ class Loginform extends React.Component {
     };
   }
 
-  setInputValue(property, val) {
+  //The value can't be more than X characters.
+  setInputValue(prop, val, limit) {
     val = val.trim();
-    if (val.length > 12) {
+    if (val.length > limit) {
       return;
     }
     this.setState({
-      [property]: val,
+      [prop]: val,
     });
   }
 
@@ -68,7 +69,24 @@ class Loginform extends React.Component {
   }
 
   render() {
-    return <div className='login-form'>Login Form</div>;
+    return (
+      <div className='login-form'>
+        Log in
+        <InputField
+          type='text'
+          placeholder='Username'
+          value={this.state.username ? this.state.username : ''}
+          onChange={(val) => this.setInputValue('username', val, 12)}
+        />
+        <InputField
+          type='password'
+          placeholder='Password'
+          value={this.state.password ? this.state.password : ''}
+          onChange={(val) => this.setInputValue('password', val, 15)}
+        />
+        <SubmitButton text='Login' disabled={this.state.buttonDisabled} onClick={() => this.doLogin()} />
+      </div>
+    );
   }
 }
 

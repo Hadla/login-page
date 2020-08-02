@@ -71,7 +71,6 @@ class App extends React.Component {
       return (
         <div className='app'>
           <div className='container'>
-            <SubmitButton text={'Log out'} disabled={false} onClick={() => this.doLogout()} />
             <LoginForm />
           </div>
         </div>
